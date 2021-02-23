@@ -1,0 +1,27 @@
+UNKNOWN
+English 0.44511
+Spanish 0.40307
+German 0.39032
+French 0.38140
+Romanian 0.31988
+Croatian 0.30016
+Dutch 0.29255
+
+UNKNOWN2
+French 0.34512
+Spanish 0.34196
+Croatian 0.33967
+German 0.29108
+English 0.28872
+Dutch 0.25962
+Romanian 0.23565
+
+UNKNOWN3
+Spanish 0.41474
+English 0.41171
+German 0.39091
+French 0.37451
+Croatian 0.33644
+Romanian 0.26332
+Dutch 0.25898
+
