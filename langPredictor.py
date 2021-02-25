@@ -35,6 +35,8 @@ def readInput(inputfile):
     f.close
     return langFileList
 
+
+
 ######UNKNOWNS######
 #Takes in a list of list in format [[LanguageName, filename.txt], [...]]
 #Returns a dictionary with Unknown documents' names in format "Unknown#" as
@@ -54,6 +56,8 @@ def readUnknownFiles(unknownDict):
         unknownDict[file] = readFile(str(unknownDict[file]))
     return unknownDict
 
+
+
 ######KNOWN######
 #Takes in a list of list in format [[LanguageName, filename.txt], [...]]
 #Returns a dictionary with LanguageName as key and multiple filenames as value
@@ -71,7 +75,7 @@ def langFileDict(langList):
 #Takes in a Language-File Dictionary and replaces the values with
 #a single string containing every character from that language's files combined
 def readFile(filename):
-    file = open(filename)
+    file = open("resources/" + filename)
     s = file.read()
     file.close
     return s
@@ -89,6 +93,9 @@ def readAndCombineFiles(lfd):
         langDict[lang] = " ".join(langDict[lang])
     return langDict
 
+
+
+
 #####Clean-Up Functions#####
 ###From:
 ##{Language: all files combined in a string
@@ -96,6 +103,7 @@ def readAndCombineFiles(lfd):
 ###TO: ->(cleans, calculates trigram freqs, noramalizes)->
 ##{Language: normalized values
 ##{Unknown: normalized values
+
 #This group of functions:
 #Takes in a dictionary and cleans the (string) values by:
 # - removing numbers and punctuation from strings
@@ -150,6 +158,9 @@ def normalizeDict(CompleteTrigDict):
         CompleteTrigDict[value] = normalize(CompleteTrigDict[value])
     return CompleteTrigDict
 
+
+
+
 ##########################################
 #This function cleans, creates trigrams, and normalizes the unknown files
 #It creates and returns the complete Unknown File Dictionary
@@ -163,6 +174,9 @@ def known(i):
     return normalizeDict(langTrigramDict(cleanDictionary(
         readAndCombineFiles(langFileDict(i)))))
 
+
+
+
 ##########################################
 ##########Tools to Calculate Stats########
 #Creates a list of the Total Possible (TP) trigrams in the entire language
@@ -173,7 +187,8 @@ def allPossibleTrigrams():
     totalTriList = [x+y+z for x in alphabet for y in alphabet for z in alphabet]
     return totalTriList
 
-#Creates a list with all normalized frequencies of TP trigrams in a given dict
+#Creates a list with all normalized frequencies of
+#TP trigrams in a given dict
 def TPTrigrams(triDict):
     tri = allPossibleTrigrams()
     TPList = []
@@ -213,6 +228,7 @@ def cosineSimilarity(ukTriDict, knowntriDict):
 
 ##########################################
 ##Brings together the Cosine Similarity##
+
 #helps the resultsCalculator function order the results
 def order(scoreList):
     scoreList.sort(key=lambda x: x[1], reverse=True)
@@ -235,6 +251,7 @@ def resultsCalculator(completeUkDict, completeKnownDict):
 #stores the results into a file
 def storeScores(output, results):
     file = open(output, 'w')
+    file.write("Output \nthe langauges we predict the unknown files may be written in are: \n-ordered from most likely to least and \n-paired with its cosine similarity index\n\n")
     for scoreList in results:
         file.write(scoreList.upper() + '\n')
         for score in results[scoreList]:
@@ -244,6 +261,9 @@ def storeScores(output, results):
 
 def main():
 
+    #To run from command line:
+    # - python langPredictor.py inputData.txt [your desired output file name].txt
+
     script, inputfile, outputfile = sys.argv
 
     fileList = readInput(inputfile)
@@ -252,9 +272,5 @@ def main():
     res = resultsCalculator(UK, K)
 
     storeScores(outputfile, res)
-
-    print(res)
-
-
 
 main()

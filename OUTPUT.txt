@@ -1,3 +1,8 @@
+Output 
+the langauges we predict the unknown files may be written in are: 
+-ordered from most likely to least and 
+-paired with its cosine similarity index
+
 UNKNOWN
 English 0.44511
 Spanish 0.40307
