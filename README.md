@@ -1,22 +1,22 @@
 # language Predictor Tool
 DS 2000 Fundamentals of Data Science - Spring 2018
 
-Completed individually (not pair programming)
-
-A tool that predicts which language a document is written in given a sample set of documents whose languages you do know.
+A language-prediction tool that predicts which langauge a given document is written in, effective on documents written in one of seven languages included in the sample set.
 
 Method:
-  1. Analyze the frequencies of trigrams (3-character subsequence) in the known documents
-  2. Collect trigram frequencies in the unknown documents
-  3. Cleans all data and normalize all trigram frequencies
-  4. Calculate the cosine similarity of trigram collections to match unknown documents to known documents
-  5. Generates output that orders the likelihood of which language the unknown documents may be written in from most to least likely. Output structured as such:
-      UNKNOWN[#], where the # corresponds to the order of which the unknown files were detected in the input
-      [most likely language] [cosine similarity between the unknown file trigrams and the known [most likely language] files' trigrams]
-      [2nd most likely language] [cosine similarity between the unknown file trigrams and the known [2nd most likely language] files' trigrams]
-      ...
-      [least likely language] [cosine similarity between the unknown file trigrams and the known [least likely language] files' trigrams]
-
+<ol>
+<li>Create two dictionaries: one for files we do know the language of, and one for unknown files
+<li>Read in the input files
+<li>Delegate and Store each input file as such:<br>
+key = [file name] or [unknown#] where the # corresponds to the order with which the tool encountered the unknown files<br>
+value = one long string that is the contents of the file
+<li>Clean all data (removing punctuation and spaces)
+<li>Collect and analyze the frequency of trigrams (3-character subsequences) in the files
+<li>Normalize the trigram frequencies
+<li>Calculate the cosine similarity between trigram collections of unknown files and known files
+<li>Match the unknown documents with the languages they have the greatest cosine similarity index with
+<li>Organize output and store in output file indicated in sys args
+</ol>
 
 In hindsight:
 The program takes quite long to run with only the small batch of input files given. The code can most certainly be optimized. 
